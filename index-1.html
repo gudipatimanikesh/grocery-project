@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#3a0ca3">
+<title>Sharma Kirana Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Figtree:wght@400..700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1c1233;--mute:#7b7592;--bg:#f4f1fb;--b:#5b21d6;--b2:#8b5cf6;--bl:#ede7ff;--g:#0f9d58;--r:#e5383b;--line:#e8e3f5;--sh:0 6px 20px rgba(60,20,140,.12);--d:"Bricolage Grotesque",Figtree,sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font:15px/1.4 Figtree,system-ui,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:100px}
+h2,h3,.f{font-family:var(--d);letter-spacing:-.02em}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit;padding:0}
+a{color:var(--b)}
+#hd{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,#3a0ca3,#6d28d9 60%,#8b5cf6);color:#fff;padding:12px 14px 14px;border-radius:0 0 22px 22px;box-shadow:0 8px 24px rgba(58,12,163,.28)}
+.r1{display:flex;align-items:center;gap:10px;max-height:60px;overflow:hidden;margin-bottom:12px;transition:max-height .3s,opacity .3s,margin .3s}
+#hd.sm .r1,#hd.adm .r1{opacity:0;max-height:0;margin:0}
+#hd.adm .r1{opacity:1;max-height:60px;margin-bottom:0}
+#hd.adm .srch{display:none}
+.eta{font:800 22px var(--d);line-height:1}
+.eta small{display:block;font:500 12px Figtree;opacity:.85;margin-top:4px}
+.av{margin-left:auto;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.22);font-weight:800;display:grid;place-items:center}
+.srch{position:relative}
+.srch input{border:0;padding:13px 14px 13px 44px;box-shadow:0 4px 14px rgba(0,0,0,.14)}
+.srch i{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-style:normal}
+.pop{position:absolute;right:14px;top:62px;background:#fff;color:var(--ink);border-radius:16px;padding:14px;box-shadow:var(--sh);width:230px;display:none}
+.pop.open{display:block;animation:pop .22s cubic-bezier(.3,1.5,.5,1);transform-origin:top right}
+.pop p{margin:10px 0}
+main{max-width:1000px;margin:0 auto;padding:14px}
+.ban{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:20px}
+.ban::-webkit-scrollbar{display:none}
+.sl{flex:0 0 100%;scroll-snap-align:center;padding:22px;min-height:140px;color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.sl h2{margin:0 0 4px;font-size:26px;line-height:1.05;max-width:62%}
+.sl p{margin:0;opacity:.92;max-width:60%}
+.art{position:absolute;right:16px;bottom:4px;font-size:88px;animation:float 3.2s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-12px) rotate(-7deg)}}
+.dots{display:flex;gap:5px;justify-content:center;margin:9px 0 0}
+.dots i{width:6px;height:6px;border-radius:9px;background:#cfc7ea;transition:.35s}
+.dots i.on{width:20px;background:var(--b)}
+.cats{display:flex;gap:12px;overflow-x:auto;padding:14px 4px 8px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{flex:0 0 auto;width:70px;text-align:center;font-size:12.5px;font-weight:700;color:var(--mute);transition:color .2s}
+.cat span{display:grid;place-items:center;width:64px;height:64px;margin:0 auto 6px;border-radius:21px;font-size:31px;transition:transform .3s cubic-bezier(.3,1.7,.5,1),box-shadow .25s}
+.cat.on{color:var(--b)}
+.cat.on span{transform:translateY(-3px) scale(1.1);box-shadow:0 0 0 2.5px var(--b)}
+.st{margin:14px 0 10px;font:800 20px var(--d)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:560px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:820px){.grid{grid-template-columns:repeat(4,1fr)}}
+.c{background:#fff;border-radius:20px;padding:8px 8px 12px;box-shadow:0 2px 10px rgba(60,20,140,.07);position:relative}
+.c.in{animation:rise .55s cubic-bezier(.2,.9,.3,1.15) backwards;animation-delay:calc(var(--i)*45ms)}
+@keyframes rise{from{opacity:0;transform:translateY(26px) scale(.93)}}
+.im{height:116px;border-radius:14px;display:grid;place-items:center;font-size:60px;overflow:hidden}
+.im span{display:block;transition:transform .35s cubic-bezier(.3,1.7,.5,1)}
+.c:hover .im span{transform:scale(1.14) rotate(-5deg)}
+.im img,.th img{width:100%;height:100%;object-fit:cover}
+.act{position:absolute;right:14px;top:102px}
+.add{height:34px;min-width:72px;padding:0 16px;border-radius:11px;background:#fff;border:1.5px solid var(--b);color:var(--b);font-weight:800;font-size:13.5px;box-shadow:0 5px 12px rgba(91,33,214,.22);transition:transform .15s}
+.add:active{transform:scale(.9)}
+.stp{display:inline-flex;align-items:center;justify-content:space-between;height:34px;min-width:86px;border-radius:11px;background:var(--b);color:#fff;font-weight:800;animation:pop .28s cubic-bezier(.3,1.8,.5,1)}
+.stp button{width:30px;height:34px;font-size:19px;color:#fff}
+@keyframes pop{from{transform:scale(.6);opacity:.3}}
+.pr{font:800 18px var(--d);margin-top:10px}
+.nm{font-weight:600;line-height:1.25;margin-top:2px;min-height:37px}
+.un{color:var(--mute);font-size:12.5px}
+.low{color:var(--r);font-size:12px;font-weight:700;margin-top:2px}
+.c.o .im{filter:grayscale(1);opacity:.5}
+.sk{height:210px;border-radius:20px;background:linear-gradient(100deg,#ebe6f7 30%,#f8f5fe 50%,#ebe6f7 70%) 0 0/200% 100%;animation:sh 1.2s infinite linear}
+@keyframes sh{to{background-position:-200% 0}}
+.empty{grid-column:1/-1;text-align:center;padding:44px 10px;color:var(--mute)}
+.empty .cta{max-width:280px;margin:14px auto 0}
+#bar{position:fixed;left:12px;right:12px;bottom:12px;max-width:560px;margin:0 auto;z-index:30;background:var(--b);color:#fff;border-radius:18px;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;text-align:left;box-shadow:0 14px 32px rgba(91,33,214,.5);transform:translateY(160%);transition:transform .5s cubic-bezier(.2,1.25,.4,1)}
+#bar.show{transform:none}
+#bar.bump{animation:bump .3s}
+@keyframes bump{50%{transform:scale(1.045)}}
+#bar b{font:800 17px var(--d);display:block}
+#bar small{opacity:.85;font-size:12px}
+.fly{position:fixed;z-index:50;font-size:30px;pointer-events:none}
+#sheet{position:fixed;inset:0;z-index:40;background:rgba(20,8,50,.5);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s}
+#sheet.open{opacity:1;pointer-events:auto}
+#sb{position:absolute;left:0;right:0;bottom:0;margin:0 auto;max-width:560px;max-height:92vh;overflow:auto;background:var(--bg);border-radius:26px 26px 0 0;padding:8px 16px 22px;transform:translateY(100%);transition:transform .42s cubic-bezier(.2,.9,.3,1)}
+#sheet.open #sb{transform:none}
+.grab{width:44px;height:5px;border-radius:9px;background:#cfc7ea;margin:4px auto 12px}
+.box{background:#fff;border-radius:18px;padding:12px 14px;margin-bottom:12px}
+.li,.pa{display:flex;align-items:center;gap:10px;padding:8px 0}
+.pa{flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.th{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:26px;background:var(--bl);overflow:hidden;flex:none}
+.li .i{flex:1;min-width:0;font-weight:600}
+.row{display:flex;justify-content:space-between;padding:4px 0}
+.prog{height:8px;border-radius:9px;background:var(--bl);overflow:hidden;margin:8px 0 2px}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--b2),var(--b));border-radius:9px;transition:width .5s}
+input,textarea,select{font:inherit;width:100%;padding:12px;border:1.5px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);transition:border-color .2s,box-shadow .2s}
+input:focus,textarea:focus{outline:0;border-color:var(--b);box-shadow:0 0 0 4px var(--bl)}
+button:focus-visible{outline:2px solid var(--b);outline-offset:2px}
+label{display:block;font-size:12.5px;font-weight:700;color:var(--mute);margin:10px 0 4px}
+.cta{display:block;width:100%;padding:15px;border-radius:15px;background:var(--b);color:#fff;font:800 16px var(--d);box-shadow:0 8px 20px rgba(91,33,214,.35);transition:transform .15s}
+.cta:active{transform:scale(.97)}
+.cta.g{background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
+.cta:disabled{opacity:.6}
+.err{color:var(--r);font-size:13px;min-height:18px}
+.nt{font-size:12.5px;color:var(--mute)}
+.chip{display:inline-block;padding:7px 13px;border-radius:99px;background:var(--bl);color:var(--b);font-weight:700;font-size:13px;text-decoration:none}
+.tabs{display:flex;background:var(--bl);border-radius:15px;padding:4px;margin-bottom:12px}
+.tabs button{flex:1;padding:11px;border-radius:12px;font-weight:700;color:var(--mute);transition:.25s}
+.tabs .on{background:#fff;color:var(--b);box-shadow:var(--sh)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+.fg .w{grid-column:1/-1}
+.pa input{width:78px;padding:8px}
+.toast{position:fixed;left:50%;bottom:104px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:12px;z-index:70;display:none;font-size:14px;animation:pop .25s}
+#ok{position:fixed;inset:0;z-index:60;background:linear-gradient(160deg,#3a0ca3,#7c3aed);color:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px}
+#ok.show{display:flex}
+#ok svg{width:116px;height:116px}
+#ok circle{stroke-dasharray:166;stroke-dashoffset:166;animation:dr .6s .1s forwards}
+#ok path{stroke-dasharray:48;stroke-dashoffset:48;animation:dr .4s .65s forwards}
+@keyframes dr{to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.otpb{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--bl);border:1.5px dashed var(--b);border-radius:14px;padding:10px 14px;margin-top:10px}
+.otpb b{font:800 26px var(--d);letter-spacing:6px;color:var(--b)}
+.otpb small{color:var(--mute);font-weight:600;line-height:1.3}
+.bdg{display:inline-block;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:800}
+.bdg.p{background:#fff1d0;color:#b45309}.bdg.d{background:#e1f5ea;color:#047857}
+.sec{display:flex;align-items:center;justify-content:space-between;margin:18px 2px 8px;font:800 18px var(--d)}
+.vf{display:flex;gap:8px;margin-top:12px}.vf input{letter-spacing:4px;font-weight:700;text-align:center}
+.vf button{flex:none;padding:0 18px;border-radius:13px;background:var(--b);color:#fff;font-weight:800}
+.pg{padding:14px 14px 40px}
+</style>
+</head>
+<body>
+<header id="hd">
+  <div class="r1"><div class="eta" id="eta"></div><button class="av" id="av" aria-label="Account" onclick="$('pop').classList.toggle('open')"></button></div>
+  <div class="srch"><i>🔍</i><input id="q" placeholder='Search "milk"' aria-label="Search products"></div>
+  <div class="pop" id="pop"></div>
+</header>
+<main id="main"></main>
+<button id="bar" onclick="openCart()"><div><b id="bt"></b><small id="bs"></small></div><span class="f">View cart ›</span></button>
+<div id="sheet" onclick="if(event.target===this)closeCart()"><div id="sb"></div></div>
+<div id="ok"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="25" fill="none" stroke="#fff" stroke-width="2"/><path fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M14 27l8 8 16-17"/></svg>
+  <h2 style="font-size:30px;margin:18px 0 6px">Order placed!</h2><p>Finish in WhatsApp so the shop can confirm it.</p>
+  <div style="background:rgba(255,255,255,.16);border-radius:18px;padding:14px 26px;margin-top:8px"><div style="font-size:13px;opacity:.9">Your delivery OTP - share it only when your order arrives</div><div id="okotp" style="font:800 38px var(--d);letter-spacing:9px;margin-top:4px"></div><div style="font-size:12px;opacity:.85;margin-top:4px">Always available in My orders &rarr; Pending</div></div>
+  <button class="cta g" style="max-width:260px;margin-top:18px" onclick="$('ok').classList.remove('show');location.hash='#/orders'">View my orders</button>
+  <button class="cta g" style="max-width:260px;margin-top:10px;background:transparent;color:#fff;border-color:rgba(255,255,255,.6)" onclick="$('ok').classList.remove('show')">Continue shopping</button></div>
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+/* ============ EDIT THIS PART ============ */
+const CONFIG = {
+  shop: "Sharma Kirana Store",
+  tagline: "Fresh groceries at your door",
+  eta: "30 min",
+  whatsapp: "919440934850",            // country code + number, no + or spaces
+  admins: ["gudipatimanikesh3@gmail.com"],   // Google accounts allowed into /admin
+  adminPassHash: "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9", // SHA-256 of admin password. Default: admin123 (change it!)
+  minOrder: 100,
+  deliveryFee: 0,
+  banners: [
+    {t:"Groceries in 30 mins", s:"Fresh from your neighbourhood kirana", e:"🛵", c:"linear-gradient(135deg,#7c3aed,#c026d3)"},
+    {t:"Fresh veggies daily", s:"Picked this morning, delivered today", e:"🥬", c:"linear-gradient(135deg,#047857,#34d399)"},
+    {t:"Pay on delivery", s:"Cash or UPI at your doorstep", e:"💸", c:"linear-gradient(135deg,#ea580c,#f43f5e)"}
+  ],
+  firebase: { apiKey:"AIzaSyAn9MwgnlKfH3TjOP3Xfzm0BlYtQOPMa4Q", authDomain:"grocery-project-123.firebaseapp.com", projectId:"grocery-project-123", appId:"1:587105940667:web:03b8b99107d5d9003f659e" }
+};
+/* ======================================== */
+
+const $ = id => document.getElementById(id);
+if (typeof firebase === "undefined") { document.body.innerHTML = "<p style='padding:30px'>Could not load the app. Check your internet connection and refresh.</p>"; throw 0; }
+firebase.initializeApp(CONFIG.firebase);
+const auth = firebase.auth(), db = firebase.firestore();
+const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const jget = (k,d) => { try{ return JSON.parse(localStorage.getItem(k)) ?? d }catch(e){ return d } };
+const jset = (k,v) => { try{ localStorage.setItem(k,JSON.stringify(v)) }catch(e){} };
+const inr = n => "₹" + Number(n).toLocaleString("en-IN");
+const isUrl = s => /^https?:/.test(s||"");
+const TINT = ["#ece6ff","#ffe9ef","#e1f5ea","#fff1d0","#e0f0ff","#ffe6d9"];
+const tint = c => TINT[[...String(c)].reduce((a,x)=>a+x.charCodeAt(0),0)%6];
+const BUILTIN = [
+ ["Fruits & Vegetables","🥦","onion tomato potato banana apple mango carrot spinach palak coriander lemon ginger garlic cucumber capsicum cabbage cauliflower brinjal beans peas orange grapes papaya watermelon pomegranate guava pineapple mushroom beetroot radish pumpkin vegetable vegetables fruit fruits"],
+ ["Dairy & Eggs","🥛","milk curd dahi paneer cheese butter ghee egg eggs cream lassi buttermilk yogurt khoa"],
+ ["Atta, Rice & Dal","🌾","atta rice basmati dal toor moong urad chana rajma maida besan sooji rava poha flour wheat ragi lentil pulses"],
+ ["Personal Care","🧴","soap shampoo toothpaste toothbrush lotion deodorant razor sanitary conditioner facewash handwash moisturiser perfume talc comb hair"],
+ ["Cleaning & Household","🧽","detergent surf vim harpic phenyl cleaner broom mop dishwash tissue napkin garbage freshener bleach matchbox mosquito agarbatti"],
+ ["Oils, Masala & Salt","🧂","oil masala salt sugar jaggery turmeric haldi powder jeera cumin pepper spice garam sambar mustard hing chilli tamarind"],
+ ["Snacks & Biscuits","🍪","biscuit biscuits chips namkeen mixture cookies kurkure wafer popcorn rusk bhujia snack snacks"],
+ ["Beverages","🧃","tea coffee juice cola soda water drink drinks horlicks bournvita energy sharbat pepsi coke lemonade"],
+ ["Breakfast & Instant","🍜","noodles maggi pasta oats cornflakes cereal jam pickle ketchup sauce vermicelli instant muesli"],
+ ["Bakery & Bread","🍞","bread bun pav cake toast bakery"],
+ ["Chocolates & Sweets","🍫","chocolate sweets candy toffee dairymilk cadbury kitkat munch perk halwa mithai laddu"],
+ ["Dry Fruits & Nuts","🥜","almond cashew raisin dates walnut pistachio makhana nuts peanut"],
+ ["Baby Care","🍼","diaper baby cerelac wipes"],
+ ["Frozen & Ice Cream","🍦","ice icecream frozen kulfi"]
+];
+const EMO = {milk:"🥛",curd:"🥣",dahi:"🥣",paneer:"🧀",cheese:"🧀",butter:"🧈",ghee:"🧈",egg:"🥚",eggs:"🥚",rice:"🍚",basmati:"🍚",atta:"🌾",flour:"🌾",dal:"🫘",rajma:"🫘",chana:"🫘",sugar:"🧂",salt:"🧂",oil:"🛢️",onion:"🧅",tomato:"🍅",potato:"🥔",banana:"🍌",apple:"🍎",mango:"🥭",orange:"🍊",carrot:"🥕",lemon:"🍋",garlic:"🧄",chilli:"🌶️",tea:"🍵",coffee:"☕",juice:"🧃",biscuit:"🍪",biscuits:"🍪",chips:"🍟",chocolate:"🍫",noodles:"🍜",maggi:"🍜",bread:"🍞",soap:"🧼",shampoo:"🧴",toothpaste:"🪥",detergent:"🧺",water:"💧",honey:"🍯",namkeen:"🥜",almond:"🥜",cake:"🍰",icecream:"🍦",diaper:"🍼"};
+const words = n => n.toLowerCase().replace(/dairy\s*milk/g,"dairymilk").split(/[^a-z]+/).filter(Boolean);
+function predict(name){
+  const w = words(name); let best = null, sc = 0;
+  for (const [c,,k] of BUILTIN) { const ks = k.split(" ");
+    const n = w.reduce((a,x)=>a+(ks.some(y=>y===x||(x.length>3&&(y.startsWith(x)||x.startsWith(y))))?1:0),0);
+    if (n > sc) { sc = n; best = c; } }
+  return best;
+}
+const emoFor = (n,c) => { for (const x of words(n)) if (EMO[x]) return EMO[x]; return (BUILTIN.find(b=>b[0]===c)||[])[1] || "🛒"; };
+const allCats = () => { const b = BUILTIN.map(x=>x[0]); return [...b, ...new Set(products.map(p=>p.cat||"Other").filter(c=>!b.includes(c)))]; };
+const catIcon = c => (BUILTIN.find(b=>b[0]===c)||[])[1] || (products.find(p=>(p.cat||"Other")===c && !isUrl(p.e))||{}).e || "🛒";
+const mapLink = l => "https://www.google.com/maps?q=" + l.lat + "," + l.lng;
+const toast = m => { const t=$("toast"); t.textContent=m; t.style.display="block"; clearTimeout(t._t); t._t=setTimeout(()=>t.style.display="none",2600); };
+
+let products = [], loaded = false, cart = jget("cart",{}), user = null, profile = jget("profile",{}), noteDraft = "";
+let catTouched = false, emoTouched = false;
+let cat = "All", cats = [], q = "", view = "shop", tab = "inv", editId = null, anim = true, unsubO = null, si = 0, sTimer;
+const isAdmin = () => user && CONFIG.admins.includes(user.email);
+
+/* ---------- Live products ---------- */
+db.collection("products").orderBy("name").onSnapshot(s => { products = s.docs.map(d=>({id:d.id,...d.data()})); loaded = true; refresh(); },
+  () => { loaded = true; refresh(); });
+function refresh(){
+  if (view === "shop") { renderCats(); renderGrid(); bar(); }
+  else if (view === "admin" && tab === "inv" && $("fn") && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) renderInv();
+  if ($("sheet").classList.contains("open")) renderCart();
+}
+
+/* ---------- Auth + header ---------- */
+async function login(){ try { await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); } catch(e){ toast("Sign in failed: " + (e.code||e.message)); } }
+auth.onAuthStateChanged(async u => {
+  user = u;
+  if (u) { try { const d = await db.collection("users").doc(u.uid).get(); if (d.exists) profile = {...profile,...d.data()}; } catch(e){} }
+  else sessionStorage.removeItem("adm");
+  route(); if ($("sheet").classList.contains("open")) renderCart();
+});
+function head(){
+  document.title = CONFIG.shop;
+  $("eta").innerHTML = view==="admin" ? `Admin panel<small>${esc(CONFIG.shop)}</small>` : view==="orders" ? `My orders<small>${esc(CONFIG.shop)}</small>` : `⚡ ${esc(CONFIG.eta)}<small>${esc(CONFIG.shop)} · ${esc(CONFIG.tagline)}</small>`;
+  $("av").textContent = user ? (user.displayName||user.email)[0].toUpperCase() : "👤";
+  $("pop").innerHTML = user
+    ? `<b>${esc(user.displayName||"Welcome")}</b><div class="nt">${esc(user.email)}</div>` + `<p><a href="#/orders">&#x1F4E6; My orders</a></p>` + (isAdmin()&&view!=="admin"?`<p><a href="#/admin">Admin panel</a></p>`:"") + (view!=="shop"?`<p><a href="#/">Back to shop</a></p>`:"") + `<button class="cta g" onclick="auth.signOut()">Sign out</button>`
+    : `<p class="nt">Sign in to place orders.</p><button class="cta" onclick="login()">Sign in with Google</button>`;
+}
+document.onclick = e => { if (!e.target.closest("#pop,#av")) $("pop").classList.remove("open"); };
+addEventListener("scroll", () => { const y = scrollY, h = $("hd"); if (y > 80) h.classList.add("sm"); else if (y < 10) h.classList.remove("sm"); }, {passive:true});
+$("q").oninput = e => { q = e.target.value.trim().toLowerCase(); if (view==="shop") renderGrid(); };
+setInterval(() => { const n = products.length ? products[Math.floor(Math.random()*products.length)].name : "groceries"; $("q").placeholder = `Search "${n}"`; }, 2600);
+
+function route(){
+  view = location.hash === "#/admin" ? "admin" : location.hash === "#/orders" ? "orders" : "shop";
+  unsubO && unsubO(); unsubO = null; $("pop").classList.remove("open");
+  $("hd").classList.toggle("adm", view==="admin"); head();
+  view === "admin" ? renderAdmin() : view === "orders" ? renderMyOrders() : renderShop(); bar();
+}
+window.onhashchange = route;
+
+/* ---------- Shop ---------- */
+function renderShop(){
+  $("main").innerHTML = `<div class="ban" id="ban">${CONFIG.banners.map(b=>`<div class="sl" style="background:${b.c}"><h2>${esc(b.t)}</h2><p>${esc(b.s)}</p><div class="art">${b.e}</div></div>`).join("")}</div>
+  <div class="dots" id="dots">${CONFIG.banners.map(()=>"<i></i>").join("")}</div>
+  <div class="cats" id="cats"></div><div class="st" id="gt"></div><div class="grid" id="grid"></div>`;
+  const b = $("ban"), d = [...$("dots").children];
+  const set = () => { si = Math.round(b.scrollLeft/b.clientWidth); d.forEach((x,j)=>x.classList.toggle("on",j===si)); };
+  b.onscroll = set; set(); clearInterval(sTimer);
+  sTimer = setInterval(() => { if (view!=="shop"||!$("ban")) return; si = (si+1)%d.length; b.scrollTo({left:si*b.clientWidth,behavior:"smooth"}); }, 3600);
+  anim = true; renderCats(); renderGrid();
+}
+function renderCats(){
+  const el = $("cats"); if (!el) return;
+  const used = new Set(products.map(p=>p.cat||"Other"));
+  cats = ["All", ...allCats().filter(c=>used.has(c))];
+  if (!cats.includes(cat)) cat = "All";
+  const ic = c => c==="All" ? "🛍️" : catIcon(c);
+  el.innerHTML = cats.map((c,i)=>`<button class="cat ${c===cat?"on":""}" onclick="setCat(${i})"><span style="background:${tint(c)}">${ic(c)}</span>${esc(c)}</button>`).join("");
+}
+function setCat(i){ cat = cats[i]; anim = true; renderCats(); renderGrid(); }
+const pic = p => isUrl(p.e) ? `<img src="${esc(p.e)}" alt="${esc(p.name)}" loading="lazy">` : `<span>${esc(p.e)||"🛒"}</span>`;
+const stp = (p,n) => `<div class="stp"><button onclick="chg('${p.id}',-1)" aria-label="Remove one">−</button>${n}<button onclick="chg('${p.id}',1)" aria-label="Add one">+</button></div>`;
+const act = p => { const n = cart[p.id]||0; return p.stock<=0 ? "" : n ? stp(p,n) : `<button class="add" onclick="chg('${p.id}',1,this)">ADD</button>`; };
+const card = (p,i,a) => `<div class="c ${a?"in":""} ${p.stock<=0?"o":""}" style="--i:${Math.min(i,12)}"><div class="im" style="background:${tint(p.cat||"Other")}">${pic(p)}</div>
+  <div class="act" id="a${p.id}">${act(p)}</div><div class="pr">${inr(p.price)}</div><div class="nm">${esc(p.name)}</div><div class="un">${esc(p.unit)}</div>
+  ${p.stock<=0?'<div class="low">Out of stock</div>':p.stock<=5?`<div class="low">Only ${p.stock} left</div>`:""}</div>`;
+function renderGrid(){
+  const g = $("grid"); if (!g) return; const a = anim; anim = false;
+  if (!loaded) { g.innerHTML = Array(8).fill('<div class="sk"></div>').join(""); return; }
+  const l = products.filter(p => (cat==="All"||(p.cat||"Other")===cat) && p.name.toLowerCase().includes(q));
+  $("gt").textContent = q ? `Results for "${q}"` : cat==="All" ? "All items" : cat;
+  g.innerHTML = l.map((p,i)=>card(p,i,a)).join("") || (products.length
+    ? `<div class="empty"><div style="font-size:54px">🔎</div>Nothing found. Try another search.</div>`
+    : `<div class="empty"><div style="font-size:54px">🛒</div><h3>Shelves are being stocked</h3>Please check back soon.${isAdmin()?`<a class="cta" href="#/admin" style="text-decoration:none">Add products</a>`:""}</div>`);
+}
+const lines = () => Object.entries(cart).map(([id,n])=>({p:products.find(x=>x.id===id),n})).filter(x=>x.p);
+const total = () => lines().reduce((a,{p,n})=>a+p.price*n,0);
+function chg(id,d,btn){
+  const p = products.find(x=>x.id===id); if (!p) return;
+  const cur = cart[id]||0, n = Math.max(0, Math.min(p.stock, cur+d));
+  if (n === cur) { if (d>0) toast("Only " + p.stock + " in stock"); return; }
+  if (btn) fly(btn,p);
+  n ? cart[id]=n : delete cart[id]; jset("cart",cart);
+  const a = $("a"+id); if (a) a.innerHTML = act(p);
+  bar(true); if ($("sheet").classList.contains("open")) renderCart();
+}
+function fly(btn,p){
+  const r = btn.getBoundingClientRect(), d = document.createElement("div");
+  d.className = "fly"; d.textContent = isUrl(p.e) ? "🛒" : (p.e||"🛒"); d.style.cssText = `left:${r.left+r.width/2-15}px;top:${r.top}px`;
+  document.body.appendChild(d);
+  d.animate([{transform:"scale(1)",opacity:1},{transform:`translate(${innerWidth/2-r.left-r.width/2}px,${innerHeight-r.top-56}px) scale(.35)`,opacity:.3}], {duration:600,easing:"cubic-bezier(.5,-.2,.8,.5)"}).onfinish = () => d.remove();
+}
+function bar(bump){
+  const L = lines(), n = L.reduce((a,x)=>a+x.n,0), b = $("bar");
+  b.classList.toggle("show", n>0 && view==="shop");
+  $("bt").textContent = n + " item" + (n>1?"s":"") + " · " + inr(total());
+  $("bs").textContent = total() >= CONFIG.minOrder ? "Ready to checkout" : "Add " + inr(CONFIG.minOrder-total()) + " more to order";
+  if (bump && n) { b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump"); }
+}
+
+/* ---------- Cart + checkout ---------- */
+function openCart(){ $("sheet").classList.add("open"); renderCart(); }
+function closeCart(){ $("sheet").classList.remove("open"); }
+function renderCart(){
+  if ($("ph")) { profile.phone = $("ph").value; profile.address = $("ad").value; noteDraft = $("note").value; }
+  const L = lines(), sub = total(), fee = L.length ? CONFIG.deliveryFee : 0, need = CONFIG.minOrder - sub;
+  let h = `<div class="grab"></div><h2 style="margin:0 0 12px;display:flex;justify-content:space-between;align-items:center">Your cart<button onclick="closeCart()" aria-label="Close" style="font-size:20px">✕</button></h2>`;
+  if (!L.length) { $("sb").innerHTML = h + `<div class="empty"><div style="font-size:60px">🛒</div>Your cart is empty</div>`; return; }
+  h += `<div class="box"><div class="nt">${need>0?`<b>Add ${inr(need)} more</b> to place your order`:`<b style="color:var(--g)">You're all set!</b> Minimum order reached 🎉`}</div><div class="prog"><i style="width:${Math.min(100,sub/CONFIG.minOrder*100)}%"></i></div></div>`;
+  h += `<div class="box">` + L.map(({p,n})=>`<div class="li"><div class="th">${pic(p)}</div><div class="i">${esc(p.name)}<div class="un">${esc(p.unit)} · ${inr(p.price)}</div></div>${stp(p,n)}<b style="min-width:56px;text-align:right">${inr(p.price*n)}</b></div>`).join("") + `</div>`;
+  h += `<div class="box"><div class="row"><span>Item total</span><span>${inr(sub)}</span></div><div class="row"><span>Delivery</span><span>${fee?inr(fee):"<b style='color:var(--g)'>FREE</b>"}</span></div>
+    <div class="row f" style="font-size:19px;font-weight:800;border-top:1px dashed var(--line);margin-top:6px;padding-top:10px"><span>To pay</span><span>${inr(sub+fee)}</span></div></div>`;
+  if (!user) h += `<button class="cta" onclick="login()">Sign in with Google to checkout</button>`;
+  else h += `<div class="box"><div class="nt">Ordering as <b>${esc(user.displayName||user.email)}</b></div>
+    <label for="ph">Mobile number</label><input id="ph" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" value="${esc(profile.phone)}">
+    <label for="ad">Delivery address</label><textarea id="ad" rows="3" placeholder="House no., street, landmark">${esc(profile.address)}</textarea>
+    <button class="cta g" style="margin-top:10px" onclick="getLoc()">📍 Attach my current location</button><p class="nt" id="locSt">${locText()}</p>
+    <label for="note">Note for the shop (optional)</label><input id="note" placeholder="e.g. call before arriving" value="${esc(noteDraft)}"></div>
+    <div class="err" id="err"></div><button class="cta" id="pb" onclick="placeOrder()">Place order · ${inr(sub+fee)}</button>
+    <p class="nt" style="text-align:center">Pay cash or UPI on delivery. Your order opens in WhatsApp for confirmation.</p>`;
+  $("sb").innerHTML = h;
+}
+function locText(){ const l = profile.loc; return l ? `✅ Location attached · <a href="${mapLink(l)}" target="_blank" rel="noopener">Check on map</a>. Tap again to update.` : "Recommended: attach your location so the delivery person can find you easily."; }
+function getLoc(){
+  const st = $("locSt");
+  if (!navigator.geolocation) { st.textContent = "Location is not supported on this device. Add landmarks in the address."; return; }
+  st.textContent = "Getting your location…";
+  navigator.geolocation.getCurrentPosition(p => {
+    profile.loc = {lat:+p.coords.latitude.toFixed(6), lng:+p.coords.longitude.toFixed(6)}; jset("profile",profile); st.innerHTML = locText();
+  }, e => { st.textContent = e.code===1 ? "Location permission denied. Allow it in browser settings, or add landmarks in the address." : "Could not get your location. Try again or add landmarks in the address."; }, {enableHighAccuracy:true, timeout:15000});
+}
+const genOtp = () => String(100000 + crypto.getRandomValues(new Uint32Array(1))[0] % 900000);   // fresh random 6-digit OTP for every order
+const LINE = "━━━━━━━━━━━━━━━━━━";
+function waMsg(o){
+  const sub = o.items.reduce((a,i)=>a+i.price*i.qty,0), fee = o.total - sub;
+  const when = new Date().toLocaleString("en-IN",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit"});
+  return [`🛒 *NEW ORDER*  |  ${CONFIG.shop}`, LINE, `🧾 Order *#${o.num}*`, `🕒 ${when}`, "",
+    `*🛍️ ITEMS (${o.items.length})*`,
+    ...o.items.map((i,k)=>`${k<9?(k+1)+"\uFE0F\u20E3":(k+1)+"."} ${i.e} *${i.name}* _(${i.unit})_\n      ${i.qty} × ${inr(i.price)} = *${inr(i.price*i.qty)}*`),
+    LINE, `Item total: ${inr(sub)}`, `Delivery: ${fee?inr(fee):"FREE 🎉"}`, `💰 *TO PAY: ${inr(o.total)}*`, `💵 _Cash / UPI on delivery_`, LINE,
+    `*👤 CUSTOMER*`, `*${o.name}*`, `📞 ${o.phone}`, `🏠 ${o.address}`,
+    ...(o.loc ? [`📍 *Map:* ${mapLink(o.loc)}`] : []), ...(o.note ? [`📝 _${o.note}_`] : []),
+    LINE, `✅ _Please confirm my order. Thank you!_`].join("\n");
+}
+async function placeOrder(){
+  const phone = $("ph").value.trim(), address = $("ad").value.trim(), note = $("note").value.trim(), err = $("err");
+  const items = lines().map(({p,n})=>({id:p.id,name:p.name,unit:p.unit,price:p.price,qty:n,e:isUrl(p.e)?"🛒":(p.e||"🛒")})), amount = total() + CONFIG.deliveryFee;
+  if (!/^[6-9]\d{9}$/.test(phone)) return err.textContent = "Enter a valid 10-digit mobile number.";
+  if (address.length < 10) return err.textContent = "Enter your full delivery address.";
+  if (amount < CONFIG.minOrder) return err.textContent = "Minimum order is " + inr(CONFIG.minOrder) + ".";
+  profile = {...profile,phone,address}; jset("profile",profile);
+  const loc = profile.loc || null;
+  const order = {uid:user.uid,name:user.displayName||"",email:user.email||"",phone,address,loc,note,items,total:amount,status:"Pending",otp:genOtp(),num:String(Date.now()).slice(-6)};
+  const msg = waMsg(order);
+  $("pb").disabled = true; $("pb").textContent = "Placing order…";
+  const win = window.open("", "_blank");          // opened first so mobile browsers don't block it
+  try {
+    order.created = firebase.firestore.FieldValue.serverTimestamp();
+    await db.collection("orders").add(order); await db.collection("users").doc(user.uid).set(profile);
+  } catch(e){ toast("Could not save the order record, but WhatsApp will still open."); }
+  const url = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg);
+  if (win) win.location = url; else location.href = url;
+  cart = {}; jset("cart",cart); noteDraft = ""; closeCart(); renderGrid(); bar(); $("okotp").textContent = order.otp; $("ok").classList.add("show");
+}
+
+/* ---------- Orders (shared helpers) ---------- */
+const isDone = o => o.status === "Completed" || o.status === "Delivered";
+const tms = o => o.created && o.created.toMillis ? o.created.toMillis() : Date.now();
+const fmt = (ts) => ts && ts.toDate ? ts.toDate().toLocaleString("en-IN",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit"}) : "just now";
+const itemsLine = o => (o.items||[]).map(i=>`${esc(i.name)} <b>&times;${i.qty}</b>`).join(" &middot; ");
+
+/* ---------- My orders (customer) ---------- */
+function myCard(o){
+  const done = isDone(o);
+  return `<div class="box"><div class="row"><b>Order #${esc(o.num)}</b><span class="bdg ${done?"d":"p"}">${done?"Delivered":"Pending"}</span></div>
+  <div class="nt">${fmt(o.created)}</div><div style="margin:6px 0">${itemsLine(o)}</div>
+  <div class="row"><span>Total</span><b>${inr(o.total)}</b></div>
+  ${done ? `<div class="nt" style="color:var(--g)">&#x2705; Delivered ${fmt(o.completedAt)}</div>`
+         : `<div class="otpb"><div><small>Delivery OTP<br>Give this to the delivery person</small></div><b>${esc(o.otp||"-")}</b></div>`}</div>`;
+}
+function renderMyOrders(){
+  const m = $("main");
+  if (!user) { m.innerHTML = `<div class="empty"><div style="font-size:56px">&#x1F4E6;</div><h2>My orders</h2>Sign in to see your orders.<button class="cta" onclick="login()">Sign in with Google</button></div>`; return; }
+  m.innerHTML = `<div class="pg"><div id="mo"><div class="sk"></div></div></div>`;
+  unsubO = db.collection("orders").where("uid","==",user.uid).onSnapshot(s => {
+    const all = s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>tms(b)-tms(a));
+    const pen = all.filter(o=>!isDone(o)), dn = all.filter(isDone);
+    $("mo").innerHTML = `<div class="sec">&#x23F3; Pending <span class="nt">${pen.length}</span></div>` + (pen.map(myCard).join("") || `<div class="empty" style="padding:18px">No pending orders.</div>`)
+      + `<div class="sec">&#x2705; Completed / Delivered <span class="nt">${dn.length}</span></div>` + (dn.map(myCard).join("") || `<div class="empty" style="padding:18px">No completed orders yet.</div>`);
+  }, () => { $("mo").textContent = "Could not load your orders. Check your Firestore rules."; });
+}
+
+/* ---------- Admin ---------- */
+const sha = async t => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(t)))].map(b=>b.toString(16).padStart(2,"0")).join("");
+function renderAdmin(){
+  const m = $("main");
+  if (!user) { m.innerHTML = `<div class="empty"><div style="font-size:56px">🔐</div><h2>Admin login</h2>Sign in with the owner's Google account.<button class="cta" onclick="login()">Sign in with Google</button></div>`; return; }
+  if (!isAdmin()) { m.innerHTML = `<div class="empty"><div style="font-size:56px">⛔</div><h2>Not an admin account</h2>${esc(user.email)} can't open this page. Sign out and use the owner account.</div>`; return; }
+  if (sessionStorage.getItem("adm") !== "1") {
+    m.innerHTML = `<div class="box" style="max-width:380px;margin:30px auto"><h2 style="margin:0">Admin login</h2><label for="ae">Admin email</label><input id="ae" type="email" autocomplete="username">
+    <label for="ap">Password</label><input id="ap" type="password" autocomplete="current-password"><div class="err" id="aerr"></div><button class="cta" onclick="adminLogin()">Open admin</button></div>`; return;
+  }
+  m.innerHTML = `<div class="tabs"><button id="t1" onclick="setTab('inv')">📦 Inventory</button><button id="t2" onclick="setTab('pen')">&#x23F3; Pending Orders</button><button id="t3" onclick="setTab('done')">&#x2705; Completed Orders</button></div><div id="pn"></div>`;
+  setTab(tab);
+}
+async function adminLogin(){
+  const ok = $("ae").value.trim().toLowerCase() === user.email.toLowerCase() && await sha($("ap").value) === CONFIG.adminPassHash;
+  if (ok) { sessionStorage.setItem("adm","1"); renderAdmin(); } else $("aerr").textContent = "Wrong admin email or password.";
+}
+function setTab(t){
+  tab = t; unsubO && unsubO(); unsubO = null;
+  $("t1").classList.toggle("on", t==="inv"); $("t2").classList.toggle("on", t==="pen"); $("t3").classList.toggle("on", t==="done");
+  t === "inv" ? renderInv() : renderOrd(t);
+}
+function renderInv(){
+  const e = products.find(p=>p.id===editId) || {}; catTouched = emoTouched = !!editId;
+  $("pn").innerHTML = `<div class="box"><h3 style="margin:0">${editId?"Edit product":"Add a product"}</h3><div class="fg">
+  <div class="w"><label for="fn">Product name</label><input id="fn" oninput="suggest()" autocomplete="off" value="${esc(e.name)}" placeholder="e.g. Basmati Rice"></div>
+  <div class="w"><label for="fc">Category <span id="hint" class="nt"></span></label>
+    <select id="fc" onchange="catChg()">${e.cat?"":`<option value="" disabled selected>Select a category…</option>`}${allCats().map(c=>`<option value="${esc(c)}" ${c===e.cat?"selected":""}>${catIcon(c)} ${esc(c)}</option>`).join("")}<option value="__new">➕ Add new category…</option></select>
+    <input id="fcn" placeholder="New category name" style="display:none;margin-top:8px"></div>
+  <div><label for="fu">Quantity / unit</label><input id="fu" value="${esc(e.unit)}" placeholder="1 kg"></div>
+  <div><label for="fp">Price (₹)</label><input id="fp" type="number" min="0" value="${e.price??""}"></div>
+  <div><label for="fs">Stock</label><input id="fs" type="number" min="0" value="${e.stock??""}"></div>
+  <div><label for="fe">Emoji or image link</label><input id="fe" oninput="emoTouched=true" value="${esc(e.e)}" placeholder="🥛 or https://…"></div></div>
+  <div class="err" id="ferr"></div><button class="cta" onclick="saveP()">${editId?"Update product":"Add product"}</button>
+  ${editId?`<button class="cta g" style="margin-top:8px" onclick="editId=null;renderInv()">Cancel</button>`:""}</div>
+  <h3>All products (${products.length})</h3><p class="nt">Edit the price (₹) and stock in each row, then tap Save.</p>
+  <div class="box">${products.map(p=>`<div class="pa"><div class="th">${pic(p)}</div><div style="flex:1;min-width:120px;font-weight:600">${esc(p.name)}<div class="un">${esc(p.unit)} · ${esc(p.cat)}</div></div>
+  <input type="number" min="0" id="pr${p.id}" value="${p.price}" aria-label="Price"><input type="number" min="0" id="sk${p.id}" value="${p.stock}" aria-label="Stock">
+  <button class="chip" onclick="quick('${p.id}')">Save</button><button onclick="editId='${p.id}';renderInv();scrollTo(0,0)" aria-label="Edit">✏️</button><button onclick="delP('${p.id}')" aria-label="Delete">🗑️</button></div>`).join("") || `<p class="nt">No products yet. Add your first one above.</p>`}</div>`;
+}
+function catChg(auto){ if (auto!==true) catTouched = true; $("fcn").style.display = $("fc").value==="__new" ? "block" : "none"; }
+function suggest(){
+  const n = $("fn").value, c = predict(n), h = $("hint");
+  if (!c) { h.textContent = ""; return; }
+  if (!catTouched) { $("fc").value = c; catChg(true); }
+  h.textContent = "✨ Suggested: " + c;
+  if (!emoTouched && n.trim()) $("fe").value = emoFor(n,c);
+}
+async function saveP(){
+  const d = {name:$("fn").value.trim(), unit:$("fu").value.trim(), cat:($("fc").value==="__new"?$("fcn").value:$("fc").value).trim(), price:+$("fp").value, stock:+$("fs").value, e:$("fe").value.trim()||"🛒"};
+  if (!d.name || !d.unit || !d.cat || $("fp").value==="" || $("fs").value==="") return $("ferr").textContent = "Fill in name, category, unit, price and stock.";
+  try { editId ? await db.collection("products").doc(editId).set(d) : await db.collection("products").add(d); toast(editId?"Product updated":"Product added"); editId = null; renderInv(); }
+  catch(x){ $("ferr").textContent = "Could not save. Check your Firestore rules and admin email."; }
+}
+async function quick(id){ try { await db.collection("products").doc(id).update({price:+$("pr"+id).value, stock:+$("sk"+id).value}); toast("Saved"); } catch(e){ toast("Save failed. Check Firestore rules."); } }
+async function delP(id){ if (!confirm("Delete this product?")) return; try { await db.collection("products").doc(id).delete(); toast("Deleted"); } catch(e){ toast("Delete failed. Check Firestore rules."); } }
+function admCard(o, id, done){
+  const base = `<div class="row"><b>${esc(o.name)} <span class="nt">#${esc(o.num)}</span></b><b>${inr(o.total)}</b></div><div class="nt">${fmt(o.created)}</div>
+    <div style="margin:6px 0">${itemsLine(o)}</div><div>${esc(o.address)}</div>${o.note?`<div class="nt">Note: ${esc(o.note)}</div>`:""}
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><a class="chip" href="tel:${esc(o.phone)}">&#x1F4DE; ${esc(o.phone)}</a>${o.loc?`<a class="chip" target="_blank" rel="noopener" href="${mapLink(o.loc)}">&#x1F4CD; Open in Maps</a>`:""}</div>`;
+  if (done) return `<div class="box">${base}<div class="nt" style="color:var(--g);margin-top:8px">&#x2705; Delivered ${fmt(o.completedAt)}</div></div>`;
+  return `<div class="box">${base}` + (o.otp
+    ? `<div class="vf"><input id="otp${id}" inputmode="numeric" maxlength="6" placeholder="Customer OTP" autocomplete="off" onkeydown="if(event.key==='Enter')verifyOrder('${id}')"><button onclick="verifyOrder('${id}')">Deliver</button></div><div class="err" id="oe${id}"></div>`
+    : `<div class="nt" style="margin-top:8px">Older order (no OTP).</div><button class="cta g" style="margin-top:8px" onclick="verifyOrder('${id}',true)">Mark delivered</button>`) + `</div>`;
+}
+let ordCache = {};
+async function verifyOrder(id, legacy){
+  const o = ordCache[id]; if (!o) return;
+  const err = $("oe"+id) || {};
+  if (!legacy) {
+    const v = ($("otp"+id).value||"").trim();
+    if (!/^\d{6}$/.test(v)) return err.textContent = "Enter the 6-digit OTP from the customer.";
+    if (v !== String(o.otp)) return err.textContent = "Wrong OTP. This order stays in Pending.";
+  } else if (!confirm("Mark this order as delivered?")) return;
+  try { await db.collection("orders").doc(id).update({status:"Completed", completedAt:firebase.firestore.FieldValue.serverTimestamp()}); toast("Order delivered \u2705"); }
+  catch(e){ toast("Could not update order. Check Firestore rules."); }
+}
+function renderOrd(t){
+  const done = t === "done";
+  $("pn").innerHTML = `<div id="ol"><div class="sk"></div></div>`;
+  unsubO = db.collection("orders").orderBy("created","desc").limit(200).onSnapshot(s => {
+    const typing = document.activeElement && document.activeElement.id && document.activeElement.id.startsWith("otp") ? [document.activeElement.id, document.activeElement.value] : null;
+    ordCache = {}; s.docs.forEach(d => ordCache[d.id] = d.data());
+    const l = s.docs.filter(d => isDone(d.data()) === done);
+    $("ol").innerHTML = `<div class="sec">${done?"Completed Orders":"Pending Orders"} <span class="nt">${l.length}</span></div>` +
+      (l.map(d => admCard(d.data(), d.id, done)).join("") || `<div class="empty">${done?"No completed orders yet.":"No pending orders."}</div>`);
+    if (typing && $(typing[0])) { $(typing[0]).value = typing[1]; $(typing[0]).focus(); }
+  }, () => { $("ol").textContent = "Could not load orders. Check your Firestore rules."; });
+}
+
+head(); route();
+</script>
+</body>
+</html>
