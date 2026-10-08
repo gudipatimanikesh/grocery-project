@@ -29,6 +29,9 @@ a{color:var(--b)}
 .pop{position:absolute;right:14px;top:62px;background:#fff;color:var(--ink);border-radius:16px;padding:14px;box-shadow:var(--sh);width:230px;display:none}
 .pop.open{display:block;animation:pop .22s cubic-bezier(.3,1.5,.5,1);transform-origin:top right}
 .pop p{margin:10px 0}
+ .pop p{margin:8px 0}
+.pop p a{display:block;padding:11px 14px;border-radius:12px;background:var(--bl);color:var(--b);font-weight:700;text-decoration:none;transition:transform .15s,background .2s}
+.pop p a:active{transform:scale(.97)}
 main{max-width:1000px;margin:0 auto;padding:14px}
 .ban{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:20px}
 .ban::-webkit-scrollbar{display:none}
@@ -236,7 +239,7 @@ function head(){
   $("eta").innerHTML = view==="admin" ? `Admin panel<small>${esc(CONFIG.shop)}</small>` : view==="orders" ? `My orders<small>${esc(CONFIG.shop)}</small>` : `⚡ ${esc(CONFIG.eta)}<small>${esc(CONFIG.shop)} · ${esc(CONFIG.tagline)}</small>`;
   $("av").textContent = user ? (user.displayName||user.email)[0].toUpperCase() : "👤";
   $("pop").innerHTML = user
-    ? `<b>${esc(user.displayName||"Welcome")}</b><div class="nt">${esc(user.email)}</div>` + `<p><a href="#/orders">&#x1F4E6; My orders</a></p>` + (isAdmin()&&view!=="admin"?`<p><a href="#/admin">Admin panel</a></p>`:"") + (view!=="shop"?`<p><a href="#/">Back to shop</a></p>`:"") + `<button class="cta g" onclick="auth.signOut()">Sign out</button>`
+    ? `<b>${esc(user.displayName||"Welcome")}</b><div class="nt">${esc(user.email)}</div>` + `<p><a class="chip" href="#/orders">&#x1F4E6; My orders</a></p>` + (isAdmin()&&view!=="admin"?`<p><a class="chip" href="#/admin">Admin panel</a></p>`:"") + (view!=="shop"?`<p><a class="chip" href="#/">Back to shop</a></p>`:"") + `<button class="cta g" onclick="auth.signOut()">Sign out</button>`
     : `<p class="nt">Sign in to place orders.</p><button class="cta" onclick="login()">Sign in with Google</button>`;
 }
 document.onclick = e => { if (!e.target.closest("#pop,#av")) $("pop").classList.remove("open"); };
